@@ -1,0 +1,211 @@
+# Lab 17 evidence - long_term layer (impl=student)
+
+## E09  PASS  (5512.3 ms, 853 tok)
+query: Lan uu tien stack backend nao cho LOTUS-88?
+missing: []  forbidden_found: []
+
+retrieved:
+<USER_SUMMARY>
+Lan's main pursuit is the LOTUS-88 project. They prefer using Java and Spring Boot for backend development and have a constraint against using Python for backend tasks.
+
+Lan prefers Java and Spring Boot for backend development and explicitly avoids using Python in this context.
+</USER_SUMMARY>
+
+<EPISODES>
+Episodes are source message or document excerpts shown in selection order.
+  - Created At: 2026-08-01 11:00:20
+    Source: message
+    Content: Lab Assistant (assistant): Da hieu: LOTUS-88, Java + Spring Boot cho backend examples.
+  - Created At: 2026-08-01 11:00:00
+    Source: message
+    Content: [user] {
+  "user_id": "lan-lab17",
+  "first_name": "Lan",
+  "last_name": "Tran",
+  "user_alias": "Lan Tran"
+}: Toi la Lan. Du an cua toi la LOTUS-88. Toi uu tien Java va Spring Boot, va khong dung Python trong vi du backend.
+</EPISODES>
+
+<FACTS>
+The timestamp shown for each fact is the reference time of the source message that introduced it — i.e. when the fact was first mentioned. `date unknown` means no reference time is recorded for the source message.
+  - Lan Tran prioritizes Java for the LOTUS-88 project. (2026-08-01 11:00:00)
+  - Lan Tran manages the LOTUS-88 project. (2026-08-01 11:00:00)
+  - Lan Tran prioritizes Spring Boot for the LOTUS-88 project. (2026-08-01 11:00:00)
+  - Lan Tran does not use Python in the backend for the LOTUS-88 project example. (2026-08-01 11:00:00)
+  - LOTUS-88 is for Java + Spring Boot for backend examples. (2026-08-01 11:00:20)
+</FACTS>
+
+<ENTITIES>
+  - Name: Spring Boot
+    Label: Topic
+    Attributes:
+      name: Spring Boot
+    Summary: Spring Boot is prioritized by Lan Tran for the LOTUS-88 project.
+  - Name: LOTUS-88
+    Label: Document
+    Attributes:
+      name: LOTUS-88
+    Summary: LOTUS-88 is a project. Lan Tran is working on this project.
+  - Name: Java
+    Label: Topic
+    Attributes:
+      name: Java
+    Summary: Java is prioritized by Lan Tran for the LOTUS-88 project.
+  - Name: Python
+    Label: Topic
+    Attributes:
+      name: Python
+    Summary: Python is not used by Lan Tran for the backend of the LOTUS-88 project.
+  - Name: Java + Spring Boot
+    Label: Topic
+    Attributes:
+      name: Java + Spring Boot
+    Summary: Da hieu uses LOTUS-88 for Java + Spring Boot backend examples.
+  - Name: Lan Tran
+    Label: User
+    Attributes:
+      email: 
+      first_name: Lan
+      last_name: Tran
+      name: Lan Tran
+      role_type: user
+      user_id: lan-lab17
+    Summary: Lan's main pursuit is the L
+
+----------------------------------------------------------------------
+
+## E02  PASS  (1625.5 ms, 1401 tok)
+query: Voi demo ca nhan cua Minh, ngon ngu uu tien la gi?
+missing: []  forbidden_found: []
+
+retrieved:
+<USER_SUMMARY>
+For the company project BLUEBIRD-42, the backend must use TypeScript with NestJS, and Python is not to be used. The user's personal project is named ORCHID-27, for which Python is preferred for personal demos. The user needs to complete a benchmark report by Friday at 16:00. The user was debugging async HTTP and identified connection churn as the main issue, proposing a solution involving reusing the aiohttp ClientSession and setting concurrency to 20.
+
+Minh prefers Python and dislikes Java. For code explanations, short examples should be used. When discussing async/await, coroutines, and Tasks, explanations should utilize a timeline, with priority given to timelines when explaining these concepts. The user's personal project is named ORCHID-27. For the company project BLUEBIRD-42, the backend must use TypeScript with NestJS, and Python is not to be used for this project.
+</USER_SUMMARY>
+
+<EPISODES>
+Episodes are source message or document excerpts shown in selection order.
+  - Created At: 2026-08-17 09:31:25
+    Source: message
+    Content: [user] {
+  "user_id": "minh-lab17",
+  "first_name": "Minh",
+  "last_name": "Nguyen",
+  "user_alias": "Evaluation User"
+}: Voi demo ca nhan cua Minh, ngon ngu uu tien la gi?
+</EPISODES>
+
+<FACTS>
+The timestamp shown for each fact is the reference time of the source message that introduced it — i.e. when the fact was first mentioned. `date unknown` means no reference time is recorded for the source message.
+  - Minh Nguyen is learning about Task. (2026-08-01 09:02:00)
+  - Minh Nguyen likes Python. (2026-08-01 09:00:00)
+  - Minh Nguyen is learning async/await. (2026-08-01 09:02:00)
+  - Minh Nguyen is learning about coroutine. (2026-08-01 09:02:00)
+  - Minh Nguyen's personal project is ORCHID-27. (2026-08-01 09:00:00)
+  - Minh Nguyen often confuses coroutine with Task. (2026-08-01 09:02:00)
+  - Minh Nguyen does not like Java. (2026-08-01 09:00:00)
+  - Minh Nguyen often confuses Task with coroutine. (2026-08-01 09:02:00)
+  - Minh Nguyen suggests reusing aiohttp ClientSession. (2026-08-03 10:03:00)
+  - Minh Nguyen identified the ASYNC-FIX-20 incident. (2026-08-03 10:03:00)
+  - Minh Nguyen is debugging async HTTP. (2026-08-03 10:00:00)
+</FACTS>
+
+<ENTITIES>
+  - Name: Minh Nguyen
+    Label: User
+    Attributes:
+      email: 
+      first_name: Minh
+      last_name: Nguyen
+      name: Minh Nguyen
+      role_type: user
+      user_id: minh-lab17
+    Summary: For the company project BLUEBIRD-42, the backend must use Typ
+
+----------------------------------------------------------------------
+
+## E03  PASS  (1524.3 ms, 1395 tok)
+query: Minh con open loop hay deadline nao chua hoan thanh?
+missing: []  forbidden_found: []
+
+retrieved:
+<USER_SUMMARY>
+For the company project BLUEBIRD-42, the backend must use TypeScript with NestJS, and Python is not to be used. The user's personal project is named ORCHID-27, for which Python is preferred for personal demos. The user needs to complete a benchmark report by Friday at 16:00. The user was debugging async HTTP and identified connection churn as the main issue, proposing a solution involving reusing the aiohttp ClientSession and setting concurrency to 20.
+
+Minh prefers Python and dislikes Java. For code explanations, short examples should be used. When discussing async/await, coroutines, and Tasks, explanations should utilize a timeline, with priority given to timelines when explaining these concepts. The user's personal project is named ORCHID-27. For the company project BLUEBIRD-42, the backend must use TypeScript with NestJS, and Python is not to be used for this project.
+</USER_SUMMARY>
+
+<EPISODES>
+Episodes are source message or document excerpts shown in selection order.
+  - Created At: 2026-08-01 09:04:00
+    Source: message
+    Content: [user] {
+  "user_id": "minh-lab17",
+  "first_name": "Minh",
+  "last_name": "Nguyen",
+  "user_alias": "Minh Nguyen"
+}: TODO: hoan thanh benchmark report truoc thu Sau luc 16:00. Day la open loop LAB-REPORT-1600.
+</EPISODES>
+
+<FACTS>
+The timestamp shown for each fact is the reference time of the source message that introduced it — i.e. when the fact was first mentioned. `date unknown` means no reference time is recorded for the source message.
+  - Minh Nguyen increased the timeout to 60s. (2026-08-03 10:00:00)
+  - Minh Nguyen is learning about Task. (2026-08-01 09:02:00)
+  - Minh Nguyen is learning async/await. (2026-08-01 09:02:00)
+  - Minh Nguyen is learning about coroutine. (2026-08-01 09:02:00)
+  - Minh Nguyen likes Python. (2026-08-01 09:00:00)
+  - Minh Nguyen suggests reusing aiohttp ClientSession. (2026-08-03 10:03:00)
+  - Minh Nguyen often confuses Task with coroutine. (2026-08-01 09:02:00)
+  - Minh Nguyen often confuses coroutine with Task. (2026-08-01 09:02:00)
+  - Minh Nguyen's personal project is ORCHID-27. (2026-08-01 09:00:00)
+  - Minh Nguyen identified the ASYNC-FIX-20 incident. (2026-08-03 10:03:00)
+  - Minh Nguyen does not like Java. (2026-08-01 09:00:00)
+  - Minh Nguyen is debugging async HTTP. (2026-08-03 10:00:00)
+  - Minh Nguyen has a to-do item to complete the benchmark report before Friday at 16:00. (2026-08-01 09:04:00)
+  - Minh Nguyen states that Python is not to be used for the bac
+
+----------------------------------------------------------------------
+
+## E08  PASS  (1512.5 ms, 1389 tok)
+query: Backend cua BLUEBIRD-42 bat buoc dung stack gi?
+missing: []  forbidden_found: []
+
+retrieved:
+<USER_SUMMARY>
+For the company project BLUEBIRD-42, the backend must use TypeScript with NestJS, and Python is not to be used. The user's personal project is named ORCHID-27, for which Python is preferred for personal demos. The user needs to complete a benchmark report by Friday at 16:00. The user was debugging async HTTP and identified connection churn as the main issue, proposing a solution involving reusing the aiohttp ClientSession and setting concurrency to 20.
+
+Minh prefers Python and dislikes Java. For code explanations, short examples should be used. When discussing async/await, coroutines, and Tasks, explanations should utilize a timeline, with priority given to timelines when explaining these concepts. The user's personal project is named ORCHID-27. For the company project BLUEBIRD-42, the backend must use TypeScript with NestJS, and Python is not to be used for this project.
+</USER_SUMMARY>
+
+<EPISODES>
+Episodes are source message or document excerpts shown in selection order.
+  - Created At: 2026-08-05 08:00:00
+    Source: message
+    Content: [user] {
+  "user_id": "minh-lab17",
+  "first_name": "Minh",
+  "last_name": "Nguyen",
+  "user_alias": "Minh Nguyen"
+}: Cap nhat moi: voi du an cong ty BLUEBIRD-42, backend bat buoc dung TypeScript voi NestJS; khong dung Python cho backend du an nay. Preference Python van dung cho demo ca nhan ORCHID-27.
+</EPISODES>
+
+<FACTS>
+The timestamp shown for each fact is the reference time of the source message that introduced it — i.e. when the fact was first mentioned. `date unknown` means no reference time is recorded for the source message.
+  - Minh Nguyen states that Python is not to be used for the backend of the BLUEBIRD-42 project. (2026-08-05 08:00:00)
+  - Minh Nguyen is learning async/await. (2026-08-01 09:02:00)
+  - Minh Nguyen is learning about coroutine. (2026-08-01 09:02:00)
+  - Minh Nguyen likes Python. (2026-08-01 09:00:00)
+  - Minh Nguyen is learning about Task. (2026-08-01 09:02:00)
+  - Minh Nguyen often confuses coroutine with Task. (2026-08-01 09:02:00)
+  - Minh Nguyen suggests reusing aiohttp ClientSession. (2026-08-03 10:03:00)
+  - Minh Nguyen often confuses Task with coroutine. (2026-08-01 09:02:00)
+  - Minh Nguyen identified the ASYNC-FIX-20 incident. (2026-08-03 10:03:00)
+  - Minh Nguyen increased the timeout to 60s. (2026-08-03 10:00:00)
+  - Minh Nguyen is debugging async HTTP. (2026-08-03 10:00:00)
+  - Minh Nguyen does not like Java. (2026-08-01 09:00:00)
+  - Minh Nguyen requires that the B
+
+----------------------------------------------------------------------
+

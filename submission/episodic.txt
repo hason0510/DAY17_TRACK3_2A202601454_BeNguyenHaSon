@@ -1,0 +1,38 @@
+# Lab 17 evidence - episodic layer (impl=student)
+
+## E04  PASS  (411.0 ms, 270 tok)
+query: Lan truoc Minh fix async HTTP timeout bang cach nao?
+missing: []  forbidden_found: []
+
+retrieved:
+EPISODE: Ten du an ca nhan cua toi la ORCHID-27. Toi thich Python va khong thich Java. Khi giai thich code, hay dung vi du ngan.
+EPISODE: Toi dang hoc async/await va hay nham coroutine voi Task. Neu sau nay gap chu de nay, hay giai thich bang timeline.
+EPISODE: TODO: hoan thanh benchmark report truoc thu Sau luc 16:00. Day la open loop LAB-REPORT-1600.
+EPISODE: Hom nay toi debug async HTTP. Toi da thu tang timeout len 60s nhung van fail.
+EPISODE: Cach hieu qua la reuse aiohttp ClientSession va dat concurrency=20. Reflection: loi chinh la connection churn, khong phai timeout threshold. Ma su co ASYNC-FIX-20.
+EPISODE: Da ghi nhan trajectory: increase timeout khong hieu qua; ClientSession + concurrency=20 giai quyet connection churn.
+EPISODE: Cap nhat moi: voi du an cong ty BLUEBIRD-42, backend bat buoc dung TypeScript voi NestJS; khong dung Python cho backend du an nay. Preference Python van dung cho demo ca nhan ORCHI
+EPISODE: Voi demo ca nhan cua Minh, ngon ngu uu tien la gi?
+EPISODE: Hay chon huong dan code retry payment phu hop voi preference ca nhan cua Minh.
+
+----------------------------------------------------------------------
+
+## E05  PASS  (252.1 ms, 304 tok)
+query: Reflection cua su co async la gi, tang timeout co phai root fix khong?
+missing: []  forbidden_found: []
+
+retrieved:
+EPISODE: Ten du an ca nhan cua toi la ORCHID-27. Toi thich Python va khong thich Java. Khi giai thich code, hay dung vi du ngan.
+EPISODE: Toi dang hoc async/await va hay nham coroutine voi Task. Neu sau nay gap chu de nay, hay giai thich bang timeline.
+EPISODE: TODO: hoan thanh benchmark report truoc thu Sau luc 16:00. Day la open loop LAB-REPORT-1600.
+EPISODE: Hom nay toi debug async HTTP. Toi da thu tang timeout len 60s nhung van fail.
+EPISODE: Hay kiem tra connection pool, lifecycle cua client va concurrency.
+EPISODE: Cach hieu qua la reuse aiohttp ClientSession va dat concurrency=20. Reflection: loi chinh la connection churn, khong phai timeout threshold. Ma su co ASYNC-FIX-20.
+EPISODE: Da ghi nhan trajectory: increase timeout khong hieu qua; ClientSession + concurrency=20 giai quyet connection churn.
+EPISODE: Cap nhat moi: voi du an cong ty BLUEBIRD-42, backend bat buoc dung TypeScript voi NestJS; khong dung Python cho backend du an nay. Preference Python van dung cho demo ca nhan ORCHI
+EPISODE: Voi demo ca nhan cua Minh, ngon ngu uu tien la gi?
+EPISODE: Hay chon huong dan code retry payment phu hop voi preference ca nhan cua Minh.
+EPISODE: Voi demo ca nhan cua Minh, ngon ngu uu tien la gi?
+
+----------------------------------------------------------------------
+

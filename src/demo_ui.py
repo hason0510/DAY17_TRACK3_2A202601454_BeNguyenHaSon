@@ -84,31 +84,116 @@ def layer_badge(layer: str) -> str:
     return f'<span class="lab-badge" style="background:{color}">{layer}</span>'
 
 
+ALL_DURABLE_LAYERS = ("long_term", "episodic", "semantic")
+
+
+def seeded_thread_messages(case: dict[str, Any]) -> list[dict[str, str]]:
+    """Recover the thread transcript a case starts from.
+
+    A case carrying `fixture_messages` supplies its own transcript; every other
+    case points at a seeded thread in data/sessions.json via its `thread_id`.
+    """
+    fixtures = case.get("fixture_messages")
+    if fixtures:
+        return [{"role": m["role"], "content": m["content"]} for m in fixtures]
+
+    for user in load_dataset()["users"]:
+        if user["user_id"] != case.get("user_id"):
+            continue
+        for session in user.get("sessions", []):
+            if session["thread_id"] == case.get("thread_id"):
+                return [{"role": m["role"], "content": m["content"]} for m in session["messages"]]
+    return []
+
+
+def seeded_thread_ids() -> set[str]:
+    return {
+        session["thread_id"]
+        for user in load_dataset()["users"]
+        for session in user.get("sessions", [])
+    }
+
+
+def long_term_thread_id(case: dict[str, Any]) -> str:
+    """The thread to prime for the Context Block — the case's own thread.
+
+    One guard: `retrieve_long_term` calls `prime_eval_thread`, which DELETES and
+    recreates the thread it is handed. Every long-term and mixed case in the
+    dataset points at its own dedicated evaluation thread, so the case's id is
+    used as-is. Were a case ever to aim a long-term retrieval at a thread that
+    holds ingested session history, priming it would erase that history, so that
+    one situation falls back to a scratch thread instead of destroying the seed.
+    """
+    thread_id = case.get("thread_id", "")
+    if thread_id in seeded_thread_ids():
+        return f"ui-{case.get('user_id', 'unknown')}-{case.get('id', 'adhoc')}"
+    return thread_id
+
+
 def retrieve_for_case(
     memory: StudentMemory,
     case: dict[str, Any],
     extra_messages: list[dict[str, str]],
 ) -> dict[str, Any]:
-    """BONUS TODO: run student retrieval for the loaded case.
+    """Run student retrieval for the loaded case and return UI-ready evidence."""
+    query = case.get("query", "")
+    user_id = case.get("user_id", "")
+    expected = case.get("expected_layer", "mixed")
 
-    Return a dict with keys:
-      - "merged_context": str  (StudentMemory.assemble_context output)
-      - "layers": dict[str, str]  (per-layer evidence: short_term/long_term/
-                                   episodic/semantic)
-      - "budget": dict  (the breakdown from assemble_context)
+    # Short-term = the thread the case starts from + whatever has been typed in
+    # the chat box since. Same strategy/limits the evaluator uses so the numbers
+    # shown here line up with reports/benchmark.md.
+    stm = ShortTermMemory(strategy="sliding", max_recent_messages=6, pressure_tokens=450)
+    for msg in seeded_thread_messages(case) + list(extra_messages):
+        stm.add(msg["role"], msg["content"])
 
-    Hints:
-      * Build short_term from case["fixture_messages"] if present, else from
-        the matching user/thread messages in data/sessions.json, plus
-        extra_messages. E01 has no fixture — it uses thread minh-s1.
-      * Decide which durable layers to fetch from case["expected_layer"] (or
-        case["retrieve_layers"] for "mixed"), then call
-        memory.retrieve_long_term / retrieve_episodic / retrieve_semantic.
-      * Keep user_id and thread_id from the loaded case.
-      * Finish with memory.assemble_context(layers).
-    """
-    _ = (memory, case, extra_messages, settings, ShortTermMemory)
-    raise NotImplementedError("BONUS TODO: run student retrieval for the loaded case")
+    # Which durable layers to hit — same rule the evaluator uses (evaluate.py):
+    # a mixed case follows its retrieve_layers, falling back to long_term plus
+    # semantic when the dataset does not say; any other case queries just its
+    # own layer. short_term is rendered above regardless, so the UI can always
+    # show the thread the case starts from.
+    if expected == "mixed":
+        wanted = [
+            layer
+            for layer in (case.get("retrieve_layers") or ("long_term", "semantic"))
+            if layer in ALL_DURABLE_LAYERS
+        ]
+    elif expected in ALL_DURABLE_LAYERS:
+        wanted = [expected]
+    else:
+        wanted = []
+
+    layers: dict[str, str] = {
+        "short_term": stm.render(),
+        "long_term": "",
+        "episodic": "",
+        "semantic": "",
+    }
+    errors: dict[str, str] = {}
+
+    for layer in wanted:
+        try:
+            if layer == "long_term":
+                layers["long_term"] = memory.retrieve_long_term(
+                    user_id=user_id,
+                    thread_id=long_term_thread_id(case),
+                    query=query,
+                )
+            elif layer == "episodic":
+                layers["episodic"] = memory.retrieve_episodic(user_id, query)
+            elif layer == "semantic":
+                layers["semantic"] = memory.retrieve_semantic(settings.semantic_graph_id, query)
+        except Exception as exc:  # noqa: BLE001 - surface per-layer, keep the rest
+            errors[layer] = f"{type(exc).__name__}: {exc}"
+
+    merged, budget = memory.assemble_context(layers)
+    return {
+        "merged_context": merged,
+        "layers": layers,
+        "budget": budget,
+        "errors": errors,
+        "short_term_stats": stm.stats(),
+    }
 
 
 def main() -> None:
@@ -164,6 +249,9 @@ def main() -> None:
         active = [k for k, v in result["layers"].items() if v.strip()]
         st.markdown(" ".join(layer_badge(k) for k in active) or "_(nothing retrieved)_",
                     unsafe_allow_html=True)
+
+        for layer, msg in (result.get("errors") or {}).items():
+            st.warning(f"`{layer}` retrieval failed — {msg}")
 
         if result.get("budget"):
             cols = st.columns(4)
